@@ -13,6 +13,10 @@ resource "aws_instance" "app" {
 
   associate_public_ip_address = true
   user_data                   = file("${path.module}/user-data.sh")
+
+  tags = {
+    Name = var.app_name
+  }
 }
 
 resource "aws_ec2_instance_state" "app_state" {
