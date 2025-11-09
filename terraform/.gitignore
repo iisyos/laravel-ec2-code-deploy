@@ -3,3 +3,5 @@
 terraform.tfstate
 terraform.terraform.lock.info
 terraform.tfstate.backup
+
+.claude
