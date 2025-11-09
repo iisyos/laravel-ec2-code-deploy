@@ -17,6 +17,10 @@ resource "aws_instance" "app" {
   tags = {
     Name = var.app_name
   }
+
+  lifecycle {
+    ignore_changes = [ami]
+  }
 }
 
 resource "aws_ec2_instance_state" "app_state" {
