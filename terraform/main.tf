@@ -12,3 +12,7 @@ terraform {
     path = "terraform.tfstate"
   }
 }
+
+locals {
+  app_name = "laravel-ec2-code-deploy"
+}
