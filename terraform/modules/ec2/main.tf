@@ -12,6 +12,11 @@ resource "aws_instance" "app" {
   iam_instance_profile   = aws_iam_instance_profile.app.id
 
   associate_public_ip_address = true
+  user_data                   = file("${path.module}/user-data.sh")
+}
 
-  #   user_data = file("${path.module}/user-data.sh")
+resource "aws_ec2_instance_state" "app_state" {
+  instance_id = aws_instance.app.id
+
+  state = var.instance_state
 }

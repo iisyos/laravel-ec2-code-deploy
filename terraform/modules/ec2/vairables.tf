@@ -23,3 +23,10 @@ variable "subnet_id" {
   description = "The subnet ID where the instance will be launched"
   type        = string
 }
+
+
+variable "instance_state" {
+  description = "The desired state of the EC2 instance (e.g., 'running', 'stopped')"
+  type        = string
+  default     = "running"
+}
