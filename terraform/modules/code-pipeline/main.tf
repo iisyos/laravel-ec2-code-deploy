@@ -125,8 +125,8 @@ resource "aws_codepipeline" "terraform_pipeline" {
         }
         file_paths {
           includes = [
-            "laravel/*",
-            "terraform/*"
+            "laravel/**",
+            "terraform/**"
           ]
         }
       }
