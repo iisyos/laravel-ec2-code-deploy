@@ -123,12 +123,12 @@ resource "aws_codepipeline" "terraform_pipeline" {
         branches {
           includes = [var.source_repo_branch]
         }
-        file_paths {
-          includes = [
-            "laravel/**",
-            "terraform/**"
-          ]
-        }
+        # file_paths {
+        #   includes = [
+        #     "laravel/**",
+        #     "terraform/**"
+        #   ]
+        # }
       }
     }
   }
