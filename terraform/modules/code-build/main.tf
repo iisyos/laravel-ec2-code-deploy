@@ -65,6 +65,6 @@ resource "aws_codebuild_project" "this" {
   }
   source {
     type      = "CODEPIPELINE"
-    buildspec = "buildspec.yml"
+    buildspec = "laravel/buildspec.yml"
   }
 }

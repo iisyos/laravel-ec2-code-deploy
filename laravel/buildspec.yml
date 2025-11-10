@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      php: 8.3
+      nodejs: 22
+    commands:
+      - curl -sS https://getcomposer.org/installer | php
+      - mv composer.phar /usr/local/bin/composer
+      - export CODEBUILD_SRC_DIR_LARAVEL=$CODEBUILD_SRC_DIR/laravel
+
+  pre_build:
+    commands:
+      - cd $CODEBUILD_SRC_DIR/laravel
+      - composer install --no-dev --optimize-autoloader
+      - npm ci
+
+  build:
+    commands:
+      - cd $CODEBUILD_SRC_DIR/laravel
+      - npm run build
+      - rm -rf tests
+
+artifacts:
+  base-directory: laravel
+  files:
+    - '**/*'
+  name: laravel-build
