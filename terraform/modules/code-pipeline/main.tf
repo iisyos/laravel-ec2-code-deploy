@@ -115,17 +115,23 @@ resource "aws_codepipeline" "terraform_pipeline" {
 
   # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codepipeline#trigger
   # https://dev.classmethod.jp/articles/codepipelinev2-file-path-trigger/
-  #   trigger {
-  #     provider_type = "CodeStarSourceConnection"
-  #     git_configuration {
-  #       source_action_name = "Source"
-  #       push {
-  #         branches {
-  #           includes = [var.source_repo_branch]
-  #         }
-  #       }
-  #     }
-  #   }
+  trigger {
+    provider_type = "CodeStarSourceConnection"
+    git_configuration {
+      source_action_name = "Source"
+      push {
+        branches {
+          includes = [var.source_repo_branch]
+        }
+        file_paths {
+          includes = [
+            "laravel/**",
+            "terraform/**"
+          ]
+        }
+      }
+    }
+  }
 
   stage {
     name = "Source"
