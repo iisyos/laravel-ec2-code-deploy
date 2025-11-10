@@ -135,7 +135,6 @@ resource "aws_codepipeline" "terraform_pipeline" {
 
   stage {
     name = "Source"
-
     action {
       name             = "Source"
       category         = "Source"
