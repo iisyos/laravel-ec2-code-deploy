@@ -104,13 +104,33 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 }
 
 resource "aws_codepipeline" "terraform_pipeline" {
-
-  name     = "${var.app_name}-pipeline"
-  role_arn = aws_iam_role.codepipeline_role.arn
+  name          = "${var.app_name}-pipeline"
+  role_arn      = aws_iam_role.codepipeline_role.arn
+  pipeline_type = "V2"
 
   artifact_store {
     location = var.s3_bucket_name
     type     = "S3"
+  }
+
+  # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codepipeline#trigger
+  # https://dev.classmethod.jp/articles/codepipelinev2-file-path-trigger/
+  trigger {
+    provider_type = "CodeStarSourceConnection"
+    git_configuration {
+      source_action_name = "Source"
+      push {
+        branches {
+          includes = [var.source_repo_branch]
+        }
+        file_paths {
+          includes = [
+            "laravel/*",
+            "terraform/*"
+          ]
+        }
+      }
+    }
   }
 
   stage {
@@ -127,8 +147,8 @@ resource "aws_codepipeline" "terraform_pipeline" {
 
       configuration = {
         ConnectionArn    = var.connection_arn
-        FullRepositoryId = "iisyos/laravel-ec2-code-deploy"
-        BranchName       = "main"
+        FullRepositoryId = var.source_repo_name
+        BranchName       = var.source_repo_branch
       }
     }
   }
