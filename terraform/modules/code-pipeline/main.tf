@@ -68,8 +68,8 @@ data "aws_iam_policy_document" "codepipeline_policy" {
     ]
 
     resources = [
-      "arn:aws:codedeploy:*:${data.aws_caller_identity.current.account_id}:application/${var.code_deploy_app_name}",
-      "arn:aws:codedeploy:*:${data.aws_caller_identity.current.account_id}:deploymentgroup/${var.code_deploy_app_name}/*",
+      "arn:aws:codedeploy:*:${data.aws_caller_identity.current.account_id}:application:${var.code_deploy_app_name}",
+      "arn:aws:codedeploy:*:${data.aws_caller_identity.current.account_id}:deploymentgroup:${var.code_deploy_app_name}/${var.code_deploy_deployment_group_name}",
     ]
   }
 
@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "codepipeline_policy" {
     ]
 
     resources = [
-      "arn:aws:codedeploy:*:${data.aws_caller_identity.current.account_id}:deploymentconfig/*",
+      "arn:aws:codedeploy:*:*:deploymentconfig:CodeDeployDefault.*"
     ]
   }
 
